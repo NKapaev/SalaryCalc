@@ -1,0 +1,25 @@
+.form {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* flex-wrap: wrap; */
+}
+
+.inputContainer {
+  margin-right: 20px;
+}
+
+.input {
+  display: block;
+  height: 30px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.formButton {
+  height: 30px;
+  /* height: 100%; */
+  width: 100%;
+}

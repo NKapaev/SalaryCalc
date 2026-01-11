@@ -1,0 +1,16 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+.input {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Убираем стрелки в Chrome, Safari, Edge */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
