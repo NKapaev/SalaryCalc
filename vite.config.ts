@@ -10,6 +10,7 @@ export default defineConfig({
       },
     }),
   ],
+  base: 'SalaryCalc', // Замените <your-repo-name> на имя вашего репозитория
   server: {
     port: 3000,
   },
