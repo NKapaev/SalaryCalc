@@ -20,6 +20,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
   background: #fff;
+  border: 2px solid black;
 }
 
 .datepicker-header {
@@ -37,6 +38,7 @@
   line-height: 147%;
   letter-spacing: -0.02em;
   color: #323749;
+  margin: 0;
 }
 
 .datepicker-header button {

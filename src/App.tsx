@@ -43,19 +43,23 @@ function App() {
       <InputForm onSubmit={handleFormSubmit} />
       <MonthlySummary totals={monthlyTotals} />
       {Object.entries(productionByDate)
+        .sort()
         .reverse()
-        .map(([date, rows]) => (
-          <DayTable
-            key={date}
-            date={date}
-            rows={rows}
-            onDeleteRow={index =>
-              setProductionByDate(prev =>
-                removeProductionRow(prev, date, index),
-              )
-            }
-          />
-        ))}
+        .map(([date, rows]) => {
+          console.log(date);
+          return (
+            <DayTable
+              key={date}
+              date={date}
+              rows={rows}
+              onDeleteRow={index =>
+                setProductionByDate(prev =>
+                  removeProductionRow(prev, date, index),
+                )
+              }
+            />
+          );
+        })}
     </div>
   );
 }

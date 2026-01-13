@@ -1,28 +1,39 @@
 import { products } from '../products';
-import type { FormData, ProductionRow, ProductionByDate } from '../types';
+import type {
+  FormData,
+  ProductionByDate,
+  StoredProductionRow,
+  ProductionRow,
+} from '../types';
 
 export function formatDateKey(date: Date): string {
-  return date.toISOString().split('T')[0];
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
 }
 
 export function findProduct(code: string) {
   return products.find(p => p.code === code);
 }
 
-export function createProductionRow(formData: FormData): ProductionRow | null {
-  const product = findProduct(formData.code);
+export function enrichProductionRows(
+  rows: StoredProductionRow[],
+): ProductionRow[] {
+  return rows
+    .map(row => {
+      const product = findProduct(row.code);
+      if (!product) return null;
 
-  if (!product || formData.quantity === null) {
-    return null;
-  }
-
-  return {
-    code: product.code,
-    name: product.name,
-    price: product.price,
-    quantity: formData.quantity,
-    summary: product.price * formData.quantity,
-  };
+      return {
+        code: row.code,
+        quantity: row.quantity,
+        name: product.name,
+        price: product.price,
+        summary: product.price * row.quantity,
+      };
+    })
+    .filter(Boolean) as ProductionRow[];
 }
 
 export function addProductionByDate(
@@ -30,14 +41,31 @@ export function addProductionByDate(
   date: Date,
   formData: FormData,
 ): ProductionByDate {
-  const dateKey = formatDateKey(date);
-  const row = createProductionRow(formData);
+  if (formData.quantity == null || formData.quantity <= 0) {
+    return prev;
+  }
 
-  if (!row) return prev;
+  const quantity = formData.quantity; // ✅ теперь точно number
+  const dateKey = formatDateKey(date);
+
+  const newRow: StoredProductionRow = {
+    code: formData.code,
+    quantity,
+  };
+
+  const existing = prev[dateKey] ?? [];
+  const index = existing.findIndex(r => r.code === formData.code);
+
+  const updatedDay =
+    index >= 0
+      ? existing.map((r, i) =>
+          i === index ? { ...r, quantity: r.quantity + quantity } : r,
+        )
+      : [...existing, newRow];
 
   return {
     ...prev,
-    [dateKey]: [...(prev[dateKey] ?? []), row],
+    [dateKey]: updatedDay,
   };
 }
 
@@ -69,7 +97,8 @@ export function calculateMonthlyTotals(
 
   Object.entries(data).forEach(([date, rows]) => {
     const monthKey = date.slice(0, 7); // YYYY-MM
-    const dayTotal = rows.reduce((sum, r) => sum + r.summary, 0);
+    const enriched = enrichProductionRows(rows);
+    const dayTotal = enriched.reduce((s, r) => s + r.summary, 0);
 
     result[monthKey] = (result[monthKey] ?? 0) + dayTotal;
   });

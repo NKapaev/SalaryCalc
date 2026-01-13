@@ -2,16 +2,20 @@ import styles from './dayTable.module.css';
 
 import Row from '../row/Row';
 import { formatDisplayDate } from '../../helpers/production';
-import type { ProductionRow } from '../../types';
+import type { StoredProductionRow } from '../../types';
+import { enrichProductionRows } from '../../helpers/production';
 
 interface DayTableProps {
   date: string;
-  rows: ProductionRow[];
+  rows: StoredProductionRow[];
   onDeleteRow: (index: number) => void;
 }
 
 export default function DayTable({ date, rows, onDeleteRow }: DayTableProps) {
-  const total = rows.reduce((sum, r) => sum + r.summary, 0);
+  const displayRows = enrichProductionRows(rows);
+
+  const enriched = enrichProductionRows(rows);
+  const dayTotal = enriched.reduce((s, r) => s + r.summary, 0);
 
   return (
     <div className="day-table">
@@ -19,15 +23,15 @@ export default function DayTable({ date, rows, onDeleteRow }: DayTableProps) {
 
       <div className={`${styles.row} ${styles.header}`}>
         <div className={styles.cell}>Код</div>
-        <div className={styles.cell}>Операция</div>
+        <div className={`${styles.cell} ${styles.nameCell}`}>Название</div>
         <div className={styles.cell}>Цена</div>
         <div className={styles.cell}>Кол-во</div>
         <div className={styles.cell}>Сумма</div>
         <div />
       </div>
 
-      {rows.map((row, i) => (
-        <Row key={i} row={row} onDelete={() => onDeleteRow(i)} />
+      {displayRows.map((row, i) => (
+        <Row key={row.code} row={row} onDelete={() => onDeleteRow(i)} />
       ))}
 
       <div className="row total">
@@ -35,7 +39,7 @@ export default function DayTable({ date, rows, onDeleteRow }: DayTableProps) {
         <div />
         <div />
         <div />
-        <div>{total}</div>
+        <div>{dayTotal}</div>
         <div />
       </div>
     </div>

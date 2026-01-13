@@ -1,5 +1,7 @@
 .row {
   display: flex;
+  position: relative;
+  padding-right: 22px;
 }
 
 .cell {
@@ -8,4 +10,18 @@
   justify-content: center;
   align-items: center;
   border: 2px solid black;
+  padding: 5px;
+}
+
+.nameCell {
+  flex-grow: 1;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+  /* transform: translateX(100%); */
 }

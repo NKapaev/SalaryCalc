@@ -9,12 +9,16 @@ export interface Product {
   price: number;
 }
 
-export interface ProductionRow {
+export interface StoredProductionRow {
   code: string;
+  quantity: number;
+}
+
+// данные для UI (расширенные)
+export interface ProductionRow extends StoredProductionRow {
   name: string;
   price: number;
-  quantity: number;
   summary: number;
 }
 
-export type ProductionByDate = Record<string, ProductionRow[]>;
+export type ProductionByDate = Record<string, StoredProductionRow[]>;

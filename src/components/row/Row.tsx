@@ -11,11 +11,13 @@ export default function Row({ row, onDelete }: RowProps) {
   return (
     <div className={styles.row}>
       <div className={styles.cell}>{row.code}</div>
-      <div className={styles.cell}>{row.name}</div>
+      <div className={`${styles.cell} ${styles.nameCell}`}>{row.name}</div>
       <div className={styles.cell}>{row.price}</div>
       <div className={styles.cell}>{row.quantity}</div>
       <div className={styles.cell}>{row.summary}</div>
-      <button onClick={onDelete}>❌</button>
+      <button className={styles.deleteButton} onClick={onDelete}>
+        ❌
+      </button>
     </div>
   );
 }
