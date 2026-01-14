@@ -1,3 +1,5 @@
+import styles from './dayTable.module.css';
+
 interface MonthlySummaryProps {
   totals: Record<string, number>;
 }
@@ -5,11 +7,13 @@ interface MonthlySummaryProps {
 export default function MonthlySummary({ totals }: MonthlySummaryProps) {
   return (
     <div className="monthly-summary">
-      <h2>Итог за месяц</h2>
+      <h2>Всего за месяц</h2>
 
       {Object.entries(totals).map(([month, sum]) => (
         <div key={month} className="month-row">
-          <strong>{month}</strong>: {sum}
+          <p className={styles.monthlySummary}>
+            {month} : {sum}
+          </p>
         </div>
       ))}
     </div>

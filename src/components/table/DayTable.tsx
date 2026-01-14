@@ -18,7 +18,7 @@ export default function DayTable({ date, rows, onDeleteRow }: DayTableProps) {
   const dayTotal = enriched.reduce((s, r) => s + r.summary, 0);
 
   return (
-    <div className="day-table">
+    <div className={styles.dayTable}>
       <h3>{formatDisplayDate(date)}</h3>
 
       <div className={`${styles.row} ${styles.header}`}>
@@ -34,8 +34,10 @@ export default function DayTable({ date, rows, onDeleteRow }: DayTableProps) {
         <Row key={row.code} row={row} onDelete={() => onDeleteRow(i)} />
       ))}
 
-      <div className="row total">
-        <div>Итого</div>
+      <div className={`${styles.row} ${styles.total}`}>
+        <div>
+          <pre className={styles.pre}>Итого: </pre>
+        </div>
         <div />
         <div />
         <div />

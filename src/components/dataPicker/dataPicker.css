@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.datepicker-input {
+  font-weight: bold;
+}
+
 .datepicker-input:hover,
 .datepicker-input:focus {
   cursor: pointer;

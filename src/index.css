@@ -7,6 +7,9 @@
 body {
   margin: 0;
   padding-top: 20px;
+  background: url('/public/bg.jpg');
+  background-position: top;
+  background-attachment: fixed;
 }
 
 .input {

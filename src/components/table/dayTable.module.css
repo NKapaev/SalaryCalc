@@ -11,8 +11,25 @@
   align-items: center;
   border: 2px solid black;
   padding: 5px;
+  background-color: #fff;
 }
 
 .nameCell {
   flex-grow: 1;
+}
+
+.monthlySummary {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.total {
+  margin-top: 10px;
+  display: flex;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.pre {
+  margin: 0;
 }
