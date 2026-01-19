@@ -30,7 +30,7 @@ export function enrichProductionRows(
         quantity: row.quantity,
         name: product.name,
         price: product.price,
-        summary: product.price * row.quantity,
+        summary: (product.price * 10 * row.quantity) / 10,
       };
     })
     .filter(Boolean) as ProductionRow[];
