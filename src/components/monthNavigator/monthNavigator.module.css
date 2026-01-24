@@ -1,0 +1,13 @@
+.navigator {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.label {
+  font-weight: 600;
+  text-transform: capitalize;
+}

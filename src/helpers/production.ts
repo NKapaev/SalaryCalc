@@ -6,6 +6,22 @@ import type {
   ProductionRow,
 } from '../types';
 
+import { getMonthKey } from './date';
+
+/**
+ * Оставляет только записи выбранного месяца
+ */
+export function filterProductionByMonth(
+  data: ProductionByDate,
+  month: Date,
+): ProductionByDate {
+  const monthKey = getMonthKey(month); // YYYY-MM
+
+  return Object.fromEntries(
+    Object.entries(data).filter(([dateKey]) => dateKey.startsWith(monthKey)),
+  );
+}
+
 export function formatDateKey(date: Date): string {
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, '0');

@@ -37,10 +37,13 @@ export default function InputForm({ onSubmit }: InputFormProps) {
         className={`${styles.input} input`}
         value={code}
         onChange={e => setCode(e.target.value)}
-        // placeholder="Код"
       >
         {products.map(product => (
-          <option key={product.code} value={product.code}>
+          <option
+            className={styles.selectOption}
+            key={product.code}
+            value={product.code}
+          >
             {product.code} {product.name}
           </option>
         ))}
