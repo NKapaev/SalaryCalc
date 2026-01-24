@@ -1,5 +1,7 @@
 import styles from './inputForm.module.css';
 
+import { products } from '../../products';
+
 import { useState } from 'react';
 import type { FormData } from '../../types';
 
@@ -31,12 +33,18 @@ export default function InputForm({ onSubmit }: InputFormProps) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <input
+      <select
         className={`${styles.input} input`}
         value={code}
         onChange={e => setCode(e.target.value)}
-        placeholder="Код"
-      />
+        // placeholder="Код"
+      >
+        {products.map(product => (
+          <option key={product.code} value={product.code}>
+            {product.code} {product.name}
+          </option>
+        ))}
+      </select>
 
       <input
         className={`${styles.input} input`}
