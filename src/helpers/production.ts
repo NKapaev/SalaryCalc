@@ -61,27 +61,30 @@ export function addProductionByDate(
     return prev;
   }
 
-  const quantity = formData.quantity; // ✅ теперь точно number
   const dateKey = formatDateKey(date);
+  const quantity = formData.quantity;
 
   const newRow: StoredProductionRow = {
     code: formData.code,
     quantity,
   };
 
-  const existing = prev[dateKey] ?? [];
-  const index = existing.findIndex(r => r.code === formData.code);
+  const day = prev[dateKey] ?? { rows: [] };
+  const index = day.rows.findIndex(r => r.code === formData.code);
 
-  const updatedDay =
+  const updatedRows =
     index >= 0
-      ? existing.map((r, i) =>
+      ? day.rows.map((r, i) =>
           i === index ? { ...r, quantity: r.quantity + quantity } : r,
         )
-      : [...existing, newRow];
+      : [...day.rows, newRow];
 
   return {
     ...prev,
-    [dateKey]: updatedDay,
+    [dateKey]: {
+      ...day,
+      rows: updatedRows,
+    },
   };
 }
 
@@ -90,19 +93,23 @@ export function removeProductionRow(
   dateKey: string,
   index: number,
 ): ProductionByDate {
-  const dayRows = prev[dateKey];
-  if (!dayRows) return prev;
+  const day = prev[dateKey];
+  if (!day) return prev;
 
-  const updatedRows = dayRows.filter((_, i) => i !== index);
+  const updatedRows = day.rows.filter((_, i) => i !== index);
 
-  if (updatedRows.length === 0) {
+  // если удалили последнюю строку и нет комментария — удаляем день целиком
+  if (updatedRows.length === 0 && !day.comment) {
     const { [dateKey]: _, ...rest } = prev;
     return rest;
   }
 
   return {
     ...prev,
-    [dateKey]: updatedRows,
+    [dateKey]: {
+      ...day,
+      rows: updatedRows,
+    },
   };
 }
 
@@ -111,9 +118,10 @@ export function calculateMonthlyTotals(
 ): Record<string, number> {
   const result: Record<string, number> = {};
 
-  Object.entries(data).forEach(([date, rows]) => {
+  Object.entries(data).forEach(([date, day]) => {
     const monthKey = date.slice(0, 7); // YYYY-MM
-    const enriched = enrichProductionRows(rows);
+
+    const enriched = enrichProductionRows(day.rows);
     const dayTotal = enriched.reduce((s, r) => s + r.summary, 0);
 
     result[monthKey] = (result[monthKey] ?? 0) + dayTotal;
@@ -125,4 +133,29 @@ export function calculateMonthlyTotals(
 export function formatDisplayDate(dateKey: string): string {
   const [year, month, day] = dateKey.split('-');
   return `${day}-${month}-${year}`;
+}
+
+export function setDayComment(
+  prev: ProductionByDate,
+  dateKey: string,
+  comment?: string,
+): ProductionByDate {
+  const day = prev[dateKey];
+  if (!day) return prev;
+
+  if (!comment) {
+    const { comment: _, ...restDay } = day;
+    return {
+      ...prev,
+      [dateKey]: restDay,
+    };
+  }
+
+  return {
+    ...prev,
+    [dateKey]: {
+      ...day,
+      comment,
+    },
+  };
 }

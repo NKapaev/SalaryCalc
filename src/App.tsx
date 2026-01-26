@@ -8,7 +8,7 @@ import DayTable from './components/table/DayTable';
 import MonthlySummary from './components/table/MonthlySummary';
 import MonthNavigator from './components/monthNavigator/MonthNavigator';
 
-import { calculateMonthlyTotals } from './helpers/production';
+import { calculateMonthlyTotals, setDayComment } from './helpers/production';
 import { addProductionByDate, removeProductionRow } from './helpers/production';
 
 import type { FormData, ProductionByDate } from './types';
@@ -26,7 +26,21 @@ function App() {
   const [productionByDate, setProductionByDate] = useState<ProductionByDate>(
     () => {
       const saved = localStorage.getItem('production');
-      return saved ? JSON.parse(saved) : {};
+      if (!saved) return {};
+
+      const parsed = JSON.parse(saved);
+
+      return Object.fromEntries(
+        Object.entries(parsed).map(([date, value]: any) => {
+          // старый формат: массив
+          if (Array.isArray(value)) {
+            return [date, { rows: value }];
+          }
+
+          // новый формат
+          return [date, value];
+        }),
+      );
     },
   );
 
@@ -79,15 +93,18 @@ function App() {
       {Object.entries(filteredByMonth)
         .sort()
         .reverse()
-        .map(([date, rows]) => (
+        .map(([date, day]) => (
           <DayTable
             key={date}
             date={date}
-            rows={rows}
+            day={day}
             onDeleteRow={index =>
               setProductionByDate(prev =>
                 removeProductionRow(prev, date, index),
               )
+            }
+            onSetComment={comment =>
+              setProductionByDate(prev => setDayComment(prev, date, comment))
             }
           />
         ))}

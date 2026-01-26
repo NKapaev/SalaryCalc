@@ -21,4 +21,14 @@ export interface ProductionRow extends StoredProductionRow {
   summary: number;
 }
 
-export type ProductionByDate = Record<string, StoredProductionRow[]>;
+export interface StoredProductionRow {
+  code: string;
+  quantity: number;
+}
+
+export interface DayProduction {
+  rows: StoredProductionRow[];
+  comment?: string;
+}
+
+export type ProductionByDate = Record<string, DayProduction>;

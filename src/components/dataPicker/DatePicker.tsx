@@ -117,7 +117,7 @@ export default function DatePicker({
           onClick={() => setIsOpen(!isOpen)}
           readOnly
           value={
-            'Выбрать дату ' +
+            'Дата: ' +
             selectedDate.toLocaleDateString('ru-RU', {
               weekday: 'long',
               month: 'long',

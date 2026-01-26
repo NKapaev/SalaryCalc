@@ -1,7 +1,6 @@
 import styles from './inputForm.module.css';
 
 import { products } from '../../products';
-
 import { useState } from 'react';
 import type { FormData } from '../../types';
 
@@ -10,7 +9,7 @@ interface InputFormProps {
 }
 
 export default function InputForm({ onSubmit }: InputFormProps) {
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(products[0]?.code || '');
   const [quantity, setQuantity] = useState<number | null>(null);
 
   function handleSubmit(e: React.FormEvent) {
@@ -27,7 +26,7 @@ export default function InputForm({ onSubmit }: InputFormProps) {
     });
 
     // Сброс формы
-    setCode('');
+    setCode(products[0]?.code || '');
     setQuantity(null);
   }
 
