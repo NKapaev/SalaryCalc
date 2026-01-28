@@ -1,6 +1,5 @@
 import styles from './inputForm.module.css';
 
-import { products } from '../../products';
 import { useState } from 'react';
 import type { FormData } from '../../types';
 import ProductSelect from '../productSelect/ProductSelect';
