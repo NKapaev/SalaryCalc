@@ -3,13 +3,14 @@ import styles from './inputForm.module.css';
 import { products } from '../../products';
 import { useState } from 'react';
 import type { FormData } from '../../types';
+import ProductSelect from '../productSelect/ProductSelect';
 
 interface InputFormProps {
   onSubmit: (data: FormData) => void;
 }
 
 export default function InputForm({ onSubmit }: InputFormProps) {
-  const [code, setCode] = useState(products[0]?.code || '');
+  const [code, setCode] = useState('');
   const [quantity, setQuantity] = useState<number | null>(null);
 
   function handleSubmit(e: React.FormEvent) {
@@ -26,27 +27,13 @@ export default function InputForm({ onSubmit }: InputFormProps) {
     });
 
     // Сброс формы
-    setCode(products[0]?.code || '');
+    setCode('');
     setQuantity(null);
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <select
-        className={`${styles.input} input`}
-        value={code}
-        onChange={e => setCode(e.target.value)}
-      >
-        {products.map(product => (
-          <option
-            className={styles.selectOption}
-            key={product.code}
-            value={product.code}
-          >
-            {product.code} {product.name}
-          </option>
-        ))}
-      </select>
+      <ProductSelect value={code} onChange={setCode} />
 
       <input
         className={`${styles.input} input`}
