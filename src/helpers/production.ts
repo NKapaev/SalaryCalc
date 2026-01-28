@@ -143,19 +143,19 @@ export function setDayComment(
   const day = prev[dateKey];
   if (!day) return prev;
 
-  if (!comment) {
-    const { comment: _, ...restDay } = day;
-    return {
-      ...prev,
-      [dateKey]: restDay,
-    };
+  const trimmed = comment?.trim();
+
+  // если нет строк И нет комментария → удалить день
+  if (day.rows.length === 0 && !trimmed) {
+    const { [dateKey]: _, ...rest } = prev;
+    return rest;
   }
 
   return {
     ...prev,
     [dateKey]: {
       ...day,
-      comment,
+      comment: trimmed || undefined,
     },
   };
 }
