@@ -21,24 +21,36 @@
 }
 
 .dropdown {
-  position: absolute;
-  bottom: 0;
-  transform: translateY(100%);
-  left: 0;
-  right: 0;
+  box-shadow: 0 0 100px black;
+  position: fixed;
+  top: 40px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  left: 30px;
+  right: 30px;
   background: white;
   border: 1px solid black;
   overflow-y: auto;
   z-index: 10;
-  max-height: 250px;
+  border-radius: 10px;
+  max-height: 700px;
 }
 
 .option {
-  padding: 6px 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+
+  width: 100%;
   display: flex;
   gap: 12px;
   cursor: pointer;
-  padding-left: 10px;
+
+  padding: 20px 15px;
+}
+
+.option:not(:last-child) {
+  border-bottom: 1px solid;
 }
 
 .option:hover {
