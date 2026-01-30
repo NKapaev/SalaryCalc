@@ -34,6 +34,8 @@
   z-index: 10;
   border-radius: 10px;
   max-height: 700px;
+  display: flex;
+  overflow-x: hidden;
 }
 
 .option {
@@ -67,4 +69,26 @@
   flex: 1;
   font-family: inherit;
   font-weight: bold;
+}
+
+.dropdownWrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.selectPage {
+  width: 100%;
+}
+
+.dropdown {
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  width: 100%;
+}
+
+.page {
+  min-width: 100%;
 }

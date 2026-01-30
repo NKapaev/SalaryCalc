@@ -1,4 +1,4 @@
-import { products } from '../products';
+import { allProducts } from '../dataStorage/allProducts';
 import type {
   FormData,
   ProductionByDate,
@@ -30,7 +30,7 @@ export function formatDateKey(date: Date): string {
 }
 
 export function findProduct(code: string) {
-  return products.find(p => p.code === code);
+  return allProducts.find(p => p.code === code);
 }
 
 export function enrichProductionRows(
