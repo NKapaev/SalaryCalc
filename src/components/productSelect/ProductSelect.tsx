@@ -39,6 +39,12 @@ export default function ProductSelect({ value, onChange }: ProductSelectProps) {
   const translateX = -page * pageWidth + dragX;
 
   useEffect(() => {
+    if (translateX < 100 && translateX > -100) {
+      setDragX(0);
+    }
+  }, [translateX]);
+
+  useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false);

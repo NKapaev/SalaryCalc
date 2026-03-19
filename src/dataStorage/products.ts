@@ -27,6 +27,11 @@ export const products: Product[] = [
     price: 3,
   },
   {
+    name: 'Пришить фартух с прошивкой',
+    code: '31',
+    price: 3.5,
+  },
+  {
     name: '2 петли',
     code: '04',
     price: 3,
