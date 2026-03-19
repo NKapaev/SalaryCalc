@@ -124,7 +124,7 @@ export function calculateMonthlyTotals(
     const enriched = enrichProductionRows(day.rows);
     const dayTotal = enriched.reduce((s, r) => s + r.summary, 0);
 
-    result[monthKey] = (result[monthKey] ?? 0) + dayTotal;
+    result[monthKey] = ((result[monthKey] ?? 0) + dayTotal * 100) / 100;
   });
 
   return result;
