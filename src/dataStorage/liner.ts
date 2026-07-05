@@ -26,7 +26,7 @@ export const liner: Product[] = [
     price: 16,
   },
   {
-    name: 'Отшив переденего клапана',
+    name: 'Отшив переднего клапана',
     code: '36',
     price: 6,
   },
