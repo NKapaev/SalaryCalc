@@ -3,31 +3,31 @@ export const liner: Product[] = [
   {
     name: 'По прямой 6м',
     code: '31',
-    price: 22,
+    price: 30,
   },
   {
     name: 'По прямой 12м',
     code: '32',
-    price: 32,
+    price: 40,
   },
   {
     name: 'Вшить перед вточенный',
     code: '33',
-    price: 17,
+    price: 21,
   },
   {
     name: 'Вшить перед откидной',
     code: '34',
-    price: 16,
+    price: 22,
   },
   {
     name: 'Вшить зад',
     code: '35',
-    price: 16,
+    price: 21,
   },
   {
     name: 'Отшив переднего клапана',
     code: '36',
-    price: 6,
+    price: 8,
   },
 ];

@@ -4,7 +4,7 @@ export const carriageLiner: Product[] = [
   {
     name: 'Пришить петли и завязки 13м',
     code: '21',
-    price: 22,
+    price: 28,
   },
   {
     name: 'Накидка',
@@ -14,17 +14,17 @@ export const carriageLiner: Product[] = [
   {
     name: 'Петли 3,10м',
     code: '23',
-    price: 6,
+    price: 9,
   },
   {
     name: 'Сшить по прямой',
     code: '24',
-    price: 34,
+    price: 44,
   },
   {
     name: 'Вшить бок',
     code: '25',
-    price: 16,
+    price: 22,
   },
   {
     name: 'Q бег',
