@@ -31,4 +31,16 @@ export const carriageLiner: Product[] = [
     code: '27',
     price: 20,
   },
+
+  {
+    name: 'Q дно',
+    code: '27-1',
+    price: 5,
+  },
+
+  {
+    name: 'Q фартух',
+    code: '27-2',
+    price: 4,
+  },
 ];
